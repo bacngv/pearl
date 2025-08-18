@@ -50,7 +50,7 @@ def access():
     
     # Tìm và click friend.png
     img_trophies = 'images/friend.png'
-    trophies_loc = wait_for_image(img_trophies, timeout=3, confidence=0.7)
+    trophies_loc = wait_for_image(img_trophies, timeout=3, confidence=0.6)
     if not trophies_loc:
         print("Không thấy friend.png")
         return False, None, None
@@ -70,7 +70,7 @@ def access():
         pag.mouseDown()
         time_rand = random.uniform(0.2, 0.3)  # Giảm thời gian
         time.sleep(time_rand)
-        pag.moveRel(-600, 0, duration=0.3)  # Giảm duration
+        pag.moveRel(-1500, 0, duration=0.5)  # Giảm duration
         pag.mouseUp()
     else:
         print("Không thấy center.png, tiếp tục...")
@@ -88,7 +88,7 @@ def access():
         pag.mouseDown()
         time_rand = random.uniform(0.2, 0.3)  # Giảm thời gian
         time.sleep(time_rand)
-        pag.moveRel(-1000, 0, duration=0.3)  # Giảm duration
+        pag.moveRel(-1000, 0, duration=0.5)  # Giảm duration
         pag.mouseUp()
     else:
         print("Không thấy leaderboard.png")
@@ -101,7 +101,7 @@ def access():
     favorite_loc = wait_for_image(favorite, timeout=2, confidence=0.7)
     if favorite_loc:
         x, y = favorite_loc.left, favorite_loc.top
-        dx, dy = 200, 600
+        dx, dy = 250, 650
         click_x = int(x + dx)
         click_y = int(y + dy)
         time.sleep(0.5)  # Giảm thời gian
@@ -125,6 +125,7 @@ def access():
         try:
             # locateAllOnScreen có thể ném pyscreeze.ImageNotFoundException
             attack_locs = list(pag.locateAllOnScreen(img_attack, confidence=conf))
+            print("tìm thấy nhà để đánh")
         except pyscreeze.ImageNotFoundException:
             # không tìm thấy kết quả (an toàn tiếp tục)
             attack_locs = []
@@ -224,7 +225,7 @@ def doattack():
                 giveup_loc = wait_for_image("images/giveup.png", timeout=2, confidence=0.7, interval=0.2)
                 if giveup_loc:
                     x, y = giveup_loc.left, giveup_loc.top
-                    dx, dy = 120, 160
+                    dx, dy = 200, 210
                     click_x = x + dx
                     click_y = y + dy
                     time.sleep(0.5)  # Giảm thời gian
@@ -274,6 +275,7 @@ def doattack():
 
 if __name__ == "__main__":
     ok = True
+    # make_full = False
     while ok:
         ok, conf, loc_attack = access()
         if not ok:
@@ -316,39 +318,33 @@ if __name__ == "__main__":
             lack_bread_loc = wait_for_image(lack_bread, timeout=2, confidence=0.7, interval=0.2)
             
             makefull_loc = wait_for_image("images/makefull.png", timeout=3, confidence=0.7, interval=0.2)
-            if makefull_loc:
-                print("thu thập bánh")
-                pag.click(makefull_loc)
-                time.sleep(2)
+            if lack_bread_loc or makefull_loc:
+                # Nếu thiếu bread, quay về friend để lấy ticket
+                exit_loc = wait_for_image("images/exit.png", timeout=3, confidence=0.7, interval=0.2)
+                if exit_loc:
+                    pag.click(exit_loc)
+                    
+                # Chờ và click friend
+                friend_loc = wait_for_image("images/friend.png", timeout=5, confidence=0.7, interval=0.2)
+                if friend_loc:
+                    pag.click(friend_loc)
+                    
+                # Chờ và click gift
+                gift_loc = wait_for_image("images/gift.png", timeout=3, confidence=0.7, interval=0.2)
+                if gift_loc:
+                    pag.click(gift_loc)
+                    
+                # Chờ và click ticket
+                ticket_loc = wait_for_image("images/ticket.png", timeout=3, confidence=0.7, interval=0.2)
+                if ticket_loc:
+                    pag.click(ticket_loc)
+                    
+                # Chờ và thoát
+                exit_loc = wait_for_image("images/exit.png", timeout=3, confidence=0.7, interval=0.2)
+                if exit_loc:
+                    pag.click(exit_loc)
+                    time.sleep(0.5)  # Giảm thời gian
+            else:
+                # Nếu không thiếu bread, bắt đầu attack
+                # time.sleep(2)
                 doattack()
-            else :
-                if lack_bread_loc:
-                    # Nếu thiếu bread, quay về friend để lấy ticket
-                    exit_loc = wait_for_image("images/exit.png", timeout=3, confidence=0.7, interval=0.2)
-                    if exit_loc:
-                        pag.click(exit_loc)
-                        
-                    # Chờ và click friend
-                    friend_loc = wait_for_image("images/friend.png", timeout=5, confidence=0.7, interval=0.2)
-                    if friend_loc:
-                        pag.click(friend_loc)
-                        
-                    # Chờ và click gift
-                    gift_loc = wait_for_image("images/gift.png", timeout=3, confidence=0.7, interval=0.2)
-                    if gift_loc:
-                        pag.click(gift_loc)
-                        
-                    # Chờ và click ticket
-                    ticket_loc = wait_for_image("images/ticket.png", timeout=3, confidence=0.7, interval=0.2)
-                    if ticket_loc:
-                        pag.click(ticket_loc)
-                        
-                    # Chờ và thoát
-                    exit_loc = wait_for_image("images/exit.png", timeout=3, confidence=0.7, interval=0.2)
-                    if exit_loc:
-                        pag.click(exit_loc)
-                        time.sleep(0.5)  # Giảm thời gian
-                else:
-                    # Nếu không thiếu bread, bắt đầu attack
-                    # time.sleep(2)
-                    doattack()
