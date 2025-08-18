@@ -319,6 +319,8 @@ if __name__ == "__main__":
             if makefull_loc:
                 print("thu thập bánh")
                 pag.click(makefull_loc)
+                time.sleep(2)
+                doattack()
             else :
                 if lack_bread_loc:
                     # Nếu thiếu bread, quay về friend để lấy ticket
