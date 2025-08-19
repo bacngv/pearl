@@ -81,7 +81,7 @@ while True:
             print("Không thấy center.png, tiếp tục...")
 
 
-        time.sleep(0.5)
+        time.sleep(random.uniform(0.5,1))
 
         leaderboard_loc = safe_locate("images/leaderboard.png", confidence=0.7)
         if leaderboard_loc:
@@ -97,7 +97,7 @@ while True:
             print("Không thấy leaderboard")
         
         
-        time.sleep(0.5)
+        time.sleep(random.uniform(0.3,0.6))
 
         
         favorite_loc = safe_locate("images/favorite.png", confidence=0.7)
@@ -106,7 +106,7 @@ while True:
             dx, dy = 250, 650
             click_x = int(x + dx)
             click_y = int(y + dy)
-            time.sleep(0.5) 
+            time.sleep(0.6) 
             pag.click(click_x, click_y)
     
     # find attack and click
@@ -124,7 +124,7 @@ while True:
     # ready to attack
     ready_loc = safe_locate("images/ready.png", confidence=0.7)
     if ready_loc :
-        time.sleep(random.uniform(0.5,1))
+        time.sleep(random.uniform(0.3,0.6))
         pag.click(ready_loc)
         exit_loc = safe_locate("images/exit.png", confidence=0.7)
         # sequence of action
@@ -135,22 +135,22 @@ while True:
             friend_loc = wait_for_image("images/friend.png", timeout=5, confidence=0.7, interval=0.2)
             if friend_loc:
                 pag.click(friend_loc)
-                time.sleep(1)
+                time.sleep(random.uniform(1,1.3))
                 
             gift_loc = wait_for_image("images/gift.png", timeout=5, confidence=0.7, interval=0.2)
             if gift_loc:
                 pag.click(gift_loc)
-                time.sleep(1)
+                time.sleep(random.uniform(1,1.3))
                 
             ticket_loc = wait_for_image("images/ticket.png", timeout=5, confidence=0.7, interval=0.2)
             if ticket_loc:
                 pag.click(ticket_loc)
-                time.sleep(1)
+                time.sleep(random.uniform(1,1.3))
                 
             exit_loc = wait_for_image("images/exit.png", timeout=5, confidence=0.7, interval=0.2)
             if exit_loc:
                 pag.click(exit_loc)
-                time.sleep(0.5)
+                time.sleep(0.6)
             exit_loc = safe_locate("images/exit.png", confidence=0.7)
         
     
@@ -182,9 +182,9 @@ while True:
         dx, dy = 200, 210
         click_x = x + dx
         click_y = y + dy
-        time.sleep(0.5)  
+        time.sleep(0.6)  
         pag.click(click_x, click_y)
-        time.sleep(1)  
+        time.sleep(random.uniform(1,1.3))  
         
         n_clicks = 10
         total_time = 2.5  
