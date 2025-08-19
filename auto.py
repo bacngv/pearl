@@ -227,7 +227,7 @@ while True:
         
 
     # find attack and click
-    attack_locs = safe_Alocate("images/attack.png", confidence=0.7)
+    attack_locs = safe_Alocate("images/attack.png", confidence=0.45)
     # loc_attack = None
     # if not attack_locs:
     #     continue
