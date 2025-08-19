@@ -110,7 +110,7 @@ while True:
             pag.click(click_x, click_y)
     
     # find attack and click
-    attack_locs = safe_Alocate("images/attack.png", confidence=0.75)
+    attack_locs = safe_Alocate("images/attack.png", confidence=0.7)
     # loc_attack = None
     # if not attack_locs:
     #     continue
