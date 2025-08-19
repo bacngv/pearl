@@ -49,9 +49,9 @@ def is_gray_region(region):
 
 # check_open_icon = False
 while True:
-    knight_loc = safe_locate("images/knight.png", confidence=0.5)
-    if knight_loc: 
-        pag.click(knight_loc)
+    gagoy_loc = safe_locate("images/gagoy.png", confidence=0.5)
+    if gagoy_loc: 
+        pag.click(gagoy_loc)
         time.sleep(random.uniform(0.5, 1))
         continue
 
@@ -83,9 +83,9 @@ while True:
 
         time.sleep(random.uniform(0.5,1))
 
-        leaderboard_loc = safe_locate("images/leaderboard.png", confidence=0.7)
-        if leaderboard_loc:
-            pag.moveTo(leaderboard_loc)
+        his_loc = safe_locate("images/history.png", confidence=0.7)
+        if his_loc:
+            pag.moveTo(his_loc)
             time_rand = random.uniform(0.3, 0.5) 
             time.sleep(time_rand)
             pag.mouseDown()
@@ -94,7 +94,7 @@ while True:
             pag.moveRel(-1500, 0, duration=0.5)  
             pag.mouseUp()
         else:
-            print("Không thấy leaderboard")
+            print("Không thấy history")
         
         
         time.sleep(random.uniform(0.3,0.6))
@@ -121,6 +121,11 @@ while True:
                 loc_attack = loc
                 pag.click(loc_attack)
         
+    comeback_loc = safe_locate("images/comeback.png", confidence=0.7)
+    if comeback_loc :
+        comeback_pos = comeback_loc.left, comeback_loc.top, 450, 450
+        pag.click(comeback_pos)
+        continue
     # ready to attack
     ready_loc = safe_locate("images/ready.png", confidence=0.7)
     if ready_loc :
