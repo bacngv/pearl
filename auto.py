@@ -156,13 +156,23 @@ list_reg = []
 cnt_mark = 0
 while True:
     track = False
-    gagoy_loc = safe_locate("images/gagoy.png", confidence=0.5)
+    gagoy_loc = safe_locate("images/gagoy.png", confidence=0.45)
     if gagoy_loc: 
         pag.click(gagoy_loc)
         time.sleep(random.uniform(0.5, 1))
         continue
 
     cnt_rw = 0
+
+    # collect ticket
+    collect_ticket_loc = safe_locate("images/collect_ticket.png", confidence=0.7)
+    if collect_ticket_loc:
+        # check_open_icon = True
+        exit_loc = safe_locate("images/exit.png", confidence=0.7)
+        if exit_loc :
+            pag.click(exit_loc)
+            time.sleep(random.uniform(0.2,0.5))
+        
     # find friend icon 
     friend_loc = safe_locate("images/friend.png", confidence=0.7)
     if friend_loc:
@@ -218,16 +228,16 @@ while True:
     
 
     # scroll 
-    full_attack_loc = safe_locate("images/full_attack.png", confidence=0.9)
+    full_attack_loc = safe_locate("images/full_attack.png", confidence=0.55)
     if full_attack_loc:
         screen_width, screen_height = pag.size()
         center_x, center_y = screen_width // 2, screen_height // 2
         pag.moveTo(center_x, center_y, duration=0.3)
-        pag.dragRel(0, -500, duration=0.5, button='left')  
+        pag.dragRel(0, -300, duration=0.5, button='left')  
         
 
     # find attack and click
-    attack_locs = safe_Alocate("images/attack.png", confidence=0.45)
+    attack_locs = safe_Alocate("images/attack.png", confidence=0.4)
     # loc_attack = None
     # if not attack_locs:
     #     continue
